@@ -1,0 +1,105 @@
+{
+  "name": "local-tunnel-share",
+  "displayName": "Local Tunnel Share",
+  "description": "Share your local development server with anyone via secure tunnel",
+  "version": "0.1.0",
+  "publisher": "local-tunnel",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:localTunnel.start",
+    "onCommand:localTunnel.stop",
+    "onCommand:localTunnel.copyUrl",
+    "onCommand:localTunnel.showQR",
+    "onCommand:localTunnel.setPassword"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "localTunnel.start",
+        "title": "Local Tunnel: Start Tunnel"
+      },
+      {
+        "command": "localTunnel.stop",
+        "title": "Local Tunnel: Stop Tunnel"
+      },
+      {
+        "command": "localTunnel.copyUrl",
+        "title": "Local Tunnel: Copy Share URL"
+      },
+      {
+        "command": "localTunnel.showQR",
+        "title": "Local Tunnel: Show QR Code"
+      },
+      {
+        "command": "localTunnel.setPassword",
+        "title": "Local Tunnel: Protect with Password"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "localTunnel",
+          "title": "Local Tunnel",
+          "icon": "resources/tunnel-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "localTunnel": [
+        {
+          "id": "localTunnelView",
+          "name": "Tunnel Status"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Local Tunnel",
+      "properties": {
+        "localTunnel.defaultPort": {
+          "type": "number",
+          "default": 3000,
+          "description": "Default port for tunnel"
+        },
+        "localTunnel.autoStart": {
+          "type": "boolean",
+          "default": false,
+          "description": "Auto start tunnel on workspace open"
+        },
+        "localTunnel.serverUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Custom tunnel server URL (leave empty to use localtunnel.me)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/qrcode": "^1.5.6",
+    "@types/vscode": "^1.80.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/vsce": "^2.19.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "localtunnel": "^2.0.2",
+    "qrcode": "^1.5.3"
+  }
+}
